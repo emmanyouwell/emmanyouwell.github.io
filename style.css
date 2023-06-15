@@ -1,0 +1,245 @@
+*, *::after, *::before{
+    box-sizing: border-box;
+}
+@font-face{
+    src: url(fonts/cocomilk/COCOMILK-San-Regular.otf);
+    font-family: cocomilk;
+}
+
+@font-face{
+    src: url(fonts/fira\ code/FiraCode-Regular.ttf);
+    font-family: fira-code;
+}
+
+@font-face{
+    src: url(fonts/roboto/Roboto-Regular.ttf);
+    font-family: roboto;
+}
+
+@font-face{
+    src: url(fonts/delight\ candles/Delight\ Candles.ttf);
+    font-family: delight candles;
+}
+
+:root{
+    --cell-size: 100px;
+    --mark-size: calc(var(--cell-size)*.9);
+    --x_axis: 0;
+    --y_axis: 0;
+    --opacity: 0;
+}
+
+body{
+    background-color:#001219;
+    color: white;
+    font-family: cocomilk;
+    margin: 0;
+}
+
+.header{
+    font-size: 6rem;
+    position:absolute;
+    top:5%;
+    left:0;
+    right:0;
+    bottom:0;
+    color: #94d2bd;
+    text-align: center;
+}
+
+.not-here{
+    display: none;
+    font-family: delight candles;
+    font-size: 1.5rem;
+    position: absolute;
+    color: #06d6a0;
+    text-shadow: 5px 5px #293241;
+    top: var(--y_axis);
+    left: var(--x_axis);
+    transition: 400ms ease-in-out;
+}
+
+.not-here.show{
+    z-index: 10;
+    display: inline;
+    opacity: var(--opacity);
+    
+}
+
+.not-here.hide{
+    display: none;
+}
+
+.container{
+    display: grid;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: repeat(3,auto);
+}
+
+.click-here{
+    position:absolute;
+    top:80%;
+    font-family: delight candles;
+    font-size: 1.5rem;
+    animation: bounce 1s linear forwards infinite;
+}
+
+.click-here.hide{
+    display:none;
+}
+
+.not-here{
+    position:absolute;
+}
+
+
+.box{
+    width: var(--cell-size);
+    height: var(--cell-size);
+    background-color: #94d2bd;
+    margin:4px;
+    position:relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 10px 10px 10px 1px #005f73;
+    cursor: pointer;
+    
+}
+
+.box.x,
+.box.o{
+    cursor: not-allowed;
+}
+
+.box.x::before,
+.box.x::after,
+.box.o::before{
+    background-color: #005f73;
+    
+    
+}
+
+.container.x .box:not(.x):not(.o):hover::before,
+.container.x .box:not(.x):not(.o):hover::after,
+.container.o .box:not(.x):not(.o):hover::before,
+.container.o .box:not(.x):not(.o):hover::after{
+    background-color: #40916c;
+    
+}
+
+.box.x::before,
+.box.x::after,
+.container.x .box:not(.x):not(.o):hover::before,
+.container.x .box:not(.x):not(.o):hover::after{
+    content: '';
+    position:absolute;
+    width: calc(var(--mark-size) * .15);
+    height: var(--mark-size);
+    
+ 
+}
+
+.box.x::before,
+.container.x .box:not(.x):not(.o):hover::before{
+    transform: rotate(45deg);
+}
+.box.x::after,
+.container.x .box:not(.x):not(.o):hover::after{
+    transform: rotate(-45deg);
+}
+
+.box.o::before,
+.box.o::after,
+.container.o .box:not(.x):not(.o):hover::before,
+.container.o .box:not(.x):not(.o):hover::after{
+    content: '';
+    position:absolute;
+    border-radius:50%;
+    
+}
+
+.box.o::before,
+.container.o .box:not(.x):not(.o):hover::before{
+    width: var(--mark-size);
+    height: var(--mark-size);
+    
+}
+.box.o::after,
+.container.o .box:not(.x):not(.o):hover::after{
+    width: calc(var(--mark-size)*.7);
+    height: calc(var(--mark-size)* .7);
+    background-color: #94d2bd;
+}
+
+.winner-prompt{
+    display: none;
+    position:fixed;
+    top:0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    color: #94d2bd;
+    background-color: rgba(0,0,0,.9);
+    justify-content: center;
+    align-items: center;
+    font-size: 5rem;
+    flex-direction: column;
+    
+}
+
+.winner-prompt button{
+    font-size: 3rem;
+    font-family: roboto;
+    color: #005f73;
+    border-radius: 10px;
+    background-color: #94d2bd;
+    border: 2px solid #005f73;
+    padding: .25em, .5em;
+    cursor: pointer;
+    
+}
+
+.winner-prompt button:hover{
+    background-color: #005f73;
+    color: #94d2bd;
+    border: 2px solid #94d2bd;
+}
+
+.winner-prompt.show{
+    display:flex;
+    
+}
+
+.footer{
+    position:absolute;
+    top:93%;
+    left:0;
+    right:0;
+    bottom:0;
+    font-family: fira-code;
+    font-size: 1rem;
+    color: #94d2bd;
+    text-align: center;
+}
+
+
+@keyframes bounce{
+    0%{
+        transform: translateY(0);
+    }
+    50%{
+        transform: translateY(20px);
+    }
+    100%{
+        transform: translateY(0);
+    }
+
+}
+
